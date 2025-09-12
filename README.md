@@ -1,4 +1,4 @@
-# advanced
+# Flutter advanced project
 
 A new Flutter project.
 
