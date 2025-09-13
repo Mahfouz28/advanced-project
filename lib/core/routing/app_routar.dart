@@ -1,7 +1,6 @@
 import 'package:advanced/core/routing/routes.dart';
 import 'package:advanced/features/loginscreen/ui/screens/loginscreen.dart';
 import 'package:advanced/features/onbordingscreen/onbordingscreen.dart';
-import 'package:advanced/features/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutar {
@@ -13,8 +12,7 @@ class AppRoutar {
         return MaterialPageRoute(builder: (_) => Onbordingscreen());
       case Routes.loginScreen:
         return MaterialPageRoute(builder: (_) => Loginscreen());
-      case Routes.splash:
-        return MaterialPageRoute(builder: (_) => SplashScreen());
+
       // case Routes.registerScreen:
       //   return MaterialPageRoute(builder: (_) => registerScreen());
       default:
