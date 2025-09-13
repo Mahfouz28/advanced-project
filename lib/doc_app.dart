@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DocApp extends StatelessWidget {
   final AppRoutar appRoutar;
+
   const DocApp({super.key, required this.appRoutar});
 
   @override
