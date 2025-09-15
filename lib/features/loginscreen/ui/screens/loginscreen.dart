@@ -1,22 +1,16 @@
 import 'package:advanced/core/theme/styles/styles.dart';
 import 'package:advanced/core/widgets/app_text_botton.dart';
-import 'package:advanced/core/widgets/app_text_form_field.dart';
+import 'package:advanced/features/loginscreen/data/model/login_req_body.dart';
+import 'package:advanced/features/loginscreen/logic/cubit/cubit/login_cubit.dart';
+import 'package:advanced/features/loginscreen/ui/widgets/email_and_password.dart';
+import 'package:advanced/features/loginscreen/ui/widgets/login_bloc_consumer.dart';
 import 'package:advanced/features/loginscreen/ui/widgets/terms_and_signup_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Loginscreen extends StatefulWidget {
+class Loginscreen extends StatelessWidget {
   const Loginscreen({super.key});
-
-  @override
-  State<Loginscreen> createState() => _LoginscreenState();
-}
-
-class _LoginscreenState extends State<Loginscreen> {
-  bool isObscure = true;
-  final formkey = GlobalKey<FormState>();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -40,36 +34,11 @@ class _LoginscreenState extends State<Loginscreen> {
                 36.verticalSpace,
                 Column(
                   children: [
-                    AppTextFormField(
-                      isobscureText: false,
-                      controller: emailController,
-                      hintText: 'Email',
-                      keyboardType: TextInputType.emailAddress,
-                    ),
-                    16.verticalSpace,
-                    AppTextFormField(
-                      isobscureText: isObscure,
-                      controller: passwordController,
-                      hintText: 'Password',
-                      keyboardType: TextInputType.visiblePassword,
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            isObscure = !isObscure;
-                          });
-                        },
-                        icon: Icon(
-                          isObscure
-                              ? Icons.visibility_off_outlined
-                              : Icons.visibility_outlined,
-                        ),
-                      ),
-                    ),
-                    25.verticalSpace,
+                    const EmailAndPassword(),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // Checkbox(value: , onChanged: onChanged),
                         Spacer(),
                         TextButton(
                           onPressed: () {},
@@ -81,9 +50,15 @@ class _LoginscreenState extends State<Loginscreen> {
                       ],
                     ),
                     32.verticalSpace,
-                    AppTextButton(text: 'Login', onPressed: () {}),
+                    AppTextButton(
+                      text: 'Login',
+                      onPressed: () {
+                        validateThenLogin(context);
+                      },
+                    ),
                     35.verticalSpace,
                     TermsAndSignupWidget(),
+                    const LoginBlocConsumer(),
                   ],
                 ),
               ],
@@ -92,5 +67,16 @@ class _LoginscreenState extends State<Loginscreen> {
         ),
       ),
     );
+  }
+
+  void validateThenLogin(BuildContext context) {
+    if (context.read<LoginCubit>().formkey.currentState!.validate()) {
+      context.read<LoginCubit>().emitLoginStates(
+        LoginReqBody(
+          email: context.read<LoginCubit>().emailController.text,
+          password: context.read<LoginCubit>().passwordController.text,
+        ),
+      );
+    }
   }
 }

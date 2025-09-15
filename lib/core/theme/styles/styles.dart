@@ -33,6 +33,16 @@ class TextStyles {
     fontWeight: FontWeightHelper.bold,
     color: AppColor.mainBlue,
   );
+  static final TextStyle font15BlueMedium = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeightHelper.medium,
+    color: AppColor.mainBlue,
+  );
+  static final TextStyle font14BluesimeBold = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeightHelper.semiBold,
+    color: AppColor.mainBlue,
+  );
   static final TextStyle font16greyRegular = TextStyle(
     fontSize: 16,
     fontWeight: FontWeightHelper.regular,
