@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppTextFormField extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
+  final String? Function(String?)? validator;
   final String? labelText;
   final String? hintText;
   final Widget? prefixIcon;
@@ -12,21 +13,26 @@ class AppTextFormField extends StatelessWidget {
   final bool isobscureText;
   final TextInputType? keyboardType;
   final TextEditingController? controller;
+
   const AppTextFormField({
     super.key,
     this.labelText,
     this.prefixIcon,
     this.suffixIcon,
-    required this.isobscureText,
+    this.isobscureText = false,
     this.keyboardType,
     this.controller,
     this.hintText,
     this.contentPadding,
+    this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      cursorColor: AppColor.mainBlue,
+
+      validator: validator,
       obscureText: isobscureText,
       controller: controller,
       keyboardType: keyboardType,
@@ -39,7 +45,6 @@ class AppTextFormField extends StatelessWidget {
         isDense: true,
         hintStyle: TextStyles.font14LightgrayMedium,
         hintText: hintText,
-
         labelText: labelText,
         prefixIcon: prefixIcon,
         prefixIconColor: AppColor.mainBlue,
@@ -56,10 +61,9 @@ class AppTextFormField extends StatelessWidget {
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.r),
-          borderSide: BorderSide(color: Colors.red),
+          borderSide: const BorderSide(color: Colors.red),
         ),
       ),
-
       style: TextStyles.font14DarkBlueMedium,
     );
   }
